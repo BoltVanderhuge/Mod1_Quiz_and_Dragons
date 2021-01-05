@@ -17,15 +17,16 @@ class Interface
     end
 
     def new_quiz_helper
-        binding.pry
+        #binding.pry
         puts "Ha ha! I see you are a person of great taste and wit but tell me more of yourself"
-        # name = prompt.ask("What is your character name?")
-        # while User.find_by(character: name)
-        #     puts "I know #{user.character} and you are no #{user.character} "
-        #     name = prompt.ask("What is your character name?")
-        # end
-        # self.user = User.create(character: name)
-        # puts "Greetings #{user.character}!"
+        name = prompt.ask("What is your character name?")
+        while User.find_by(character: name)
+         user_name = User.find_by(character: name)
+            puts "I know #{user_name.character} and you are no #{user_name.character} "
+            name = prompt.ask("What is your character name?")
+        end
+        self.user = User.create(character: name)
+        puts "Greetings #{user.character}!"
     end
 
 end

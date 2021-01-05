@@ -1,4 +1,9 @@
 class QuizDifficulty < ActiveRecord::Base
-  has_many :quizzes
-  has_many :difficulties
+  belongs_to :quiz
+  # has_many :quizzes 
+  # has_many :difficulties 
+  belongs_to :difficulty
+
+  
+
 end

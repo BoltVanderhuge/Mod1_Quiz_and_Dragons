@@ -129,57 +129,97 @@ end
 # normalq2 = QuizDifficulty.create(quiz_id: q2.id, difficulty_id: normal.id)
 # hardq3 = QuizDifficulty.create(quiz_id: q3.id, difficulty_id: hard.id)
 
-# question1 = Question.create(question_text: "How many whatever?", difficulty_id: easy.id)
-# question2 = Question.create(question_text: "How manys whatever?", difficulty_id: easy.id)
-# question3 = Question.create(question_text: "How many whateversss?", difficulty_id: easy.id)
+question1 = Question.create(question_text: "What sound does a cat make?", difficulty_id: easy.id)
+question2 = Question.create(question_text: "This is an easy question?", difficulty_id: easy.id)
+question3 = Question.create(question_text: "what color is the sky?", difficulty_id: easy.id)
 
-# question4 = Question.create(question_text: "How many wherevers?", difficulty_id: normal.id)
-# question5 = Question.create(question_text: "How manys wherevers??", difficulty_id: normal.id)
-# question6 = Question.create(question_text: "How many whereversss??", difficulty_id: normal.id)
+question4 = Question.create(question_text: "How many wheels does a car have?", difficulty_id: normal.id)
+question5 = Question.create(question_text: "How many wheels does a skateboard have?", difficulty_id: normal.id)
+question6 = Question.create(question_text: "Where is Germany located?", difficulty_id: normal.id)
 
-# question7 = Question.create(question_text: "How many whenever?", difficulty_id: hard.id)
-# question8 = Question.create(question_text: "How manys whenever??", difficulty_id: hard.id)
-# question9 = Question.create(question_text: "How many wheneversss?", difficulty_id: hard.id)
+question7 = Question.create(question_text: "How many whenever?", difficulty_id: easy.id)
+question8 = Question.create(question_text: "How manys whenever??", difficulty_id: easy.id)
+question9 = Question.create(question_text: "How many wheneversss?", difficulty_id: normal.id)
 
-# correctanswer1 = Answer.create(answer_text: "for sure")
-# incorrectanswer1 = Answer.create(answer_text: "nah")
-# incorrectanswer1b = Answer.create(answer_text: "nope")
-# incorrectanswer1c = Answer.create(answer_text: "never")
+correctanswer1 = Answer.create(answer_text: "meow")
+incorrectanswer1 = Answer.create(answer_text: "woof")
+incorrectanswer1b = Answer.create(answer_text: "moo")
+incorrectanswer1c = Answer.create(answer_text: "caw caw")
 
 
-# correctanswer2 = Answer.create(answer_text: "100 percent")
-# incorrectanswer2 = Answer.create(answer_text: "none")
-# incorrectanswer2b = Answer.create(answer_text: "negative")
-# incorrectanswer2c = Answer.create(answer_text: "50 percent")
+correctanswer2 = Answer.create(answer_text: "100 percent")
+incorrectanswer2 = Answer.create(answer_text: "no")
+incorrectanswer2b = Answer.create(answer_text: "negative")
+incorrectanswer2c = Answer.create(answer_text: "not remoteley")
 
-# correctanswer3 = Answer.create(answer_text: "for sure")
-# incorrectanswer3 = Answer.create(answer_text: "nah")
-# incorrectanswer3b = Answer.create(answer_text: "nope")
-# incorrectanswer3c = Answer.create(answer_text: "never")
+correctanswer3 = Answer.create(answer_text: "blue")
+incorrectanswer3 = Answer.create(answer_text: "wine colored")
+incorrectanswer3b = Answer.create(answer_text: "aubergine")
+incorrectanswer3c = Answer.create(answer_text: "puke")
 
-# qa1 = Qa.create(question_id: question1.id, answer_id: correctanswer1.id,  correct: true)
+correctanswer4 = Answer.create(answer_text: "4")
+incorrectanswer4 = Answer.create(answer_text: "6")
+incorrectanswer4b = Answer.create(answer_text: "8")
+incorrectanswer4c = Answer.create(answer_text: "12")
 
-# qa1b = Qa.create(question_id: question1.id, answer_id: incorrectanswer1.id, correct: false)
 
-# qa1c = Qa.create(question_id: question1.id, answer_id: incorrectanswer1b.id, correct: false)
+correctanswer5 = Answer.create(answer_text: "4")
+incorrectanswer5 = Answer.create(answer_text: "22")
+incorrectanswer5b = Answer.create(answer_text: "25")
+incorrectanswer5c = Answer.create(answer_text: "28")
 
-# qa1d = Qa.create(question_id: question1.id, answer_id: incorrectanswer1c.id, correct: false)
+correctanswer6 = Answer.create(answer_text: "Europe")
+incorrectanswer6 = Answer.create(answer_text: "Africa")
+incorrectanswer6b = Answer.create(answer_text: "Asia")
+incorrectanswer6c = Answer.create(answer_text: "North America")
 
-# qa2 = Qa.create(question_id: question2.id, answer_id: correctanswer2.id,  correct: true)
+qa1 = Qa.create(question_id: question1.id, answer_id: correctanswer1.id,  correct: true)
 
-# qa2b = Qa.create(question_id: question2.id, answer_id: incorrectanswer2.id, correct: false)
+qa1b = Qa.create(question_id: question1.id, answer_id: incorrectanswer1.id, correct: false)
 
-# qa2c = Qa.create(question_id: question2.id, answer_id: incorrectanswer2b.id, correct: false)
+qa1c = Qa.create(question_id: question1.id, answer_id: incorrectanswer1b.id, correct: false)
 
-# qa2d = Qa.create(question_id: question2.id, answer_id: incorrectanswer2c.id, correct: false)
+qa1d = Qa.create(question_id: question1.id, answer_id: incorrectanswer1c.id, correct: false)
 
-# qa3 = Qa.create(question_id: question3.id, answer_id: correctanswer3.id,  correct: true)
+qa2 = Qa.create(question_id: question2.id, answer_id: correctanswer2.id,  correct: true)
 
-# qa3b = Qa.create(question_id: question3.id, answer_id: incorrectanswer3.id, correct: false)
+qa2b = Qa.create(question_id: question2.id, answer_id: incorrectanswer2.id, correct: false)
 
-# qa3c = Qa.create(question_id: question3.id, answer_id: incorrectanswer3b.id, correct: false)
+qa2c = Qa.create(question_id: question2.id, answer_id: incorrectanswer2b.id, correct: false)
 
-# qa3d = Qa.create(question_id: question3.id, answer_id: incorrectanswer3c.id, correct: false)
+qa2d = Qa.create(question_id: question2.id, answer_id: incorrectanswer2c.id, correct: false)
+
+qa3 = Qa.create(question_id: question3.id, answer_id: correctanswer3.id,  correct: true)
+
+qa3b = Qa.create(question_id: question3.id, answer_id: incorrectanswer3.id, correct: false)
+
+qa3c = Qa.create(question_id: question3.id, answer_id: incorrectanswer3b.id, correct: false)
+
+qa3d = Qa.create(question_id: question3.id, answer_id: incorrectanswer3c.id, correct: false)
+
+qa4 = Qa.create(question_id: question4.id, answer_id: correctanswer4.id,  correct: true)
+
+qa4b = Qa.create(question_id: question4.id, answer_id: incorrectanswer4.id, correct: false)
+
+qa4c = Qa.create(question_id: question4.id, answer_id: incorrectanswer4b.id, correct: false)
+
+qa4d = Qa.create(question_id: question4.id, answer_id: incorrectanswer4c.id, correct: false)
+
+qa5 = Qa.create(question_id: question5.id, answer_id: correctanswer5.id,  correct: true)
+
+qa5b = Qa.create(question_id: question5.id, answer_id: incorrectanswer5.id, correct: false)
+
+qa5c = Qa.create(question_id: question5.id, answer_id: incorrectanswer5b.id, correct: false)
+
+qa5d = Qa.create(question_id: question5.id, answer_id: incorrectanswer5c.id, correct: false)
+
+qa6 = Qa.create(question_id: question6.id, answer_id: correctanswer6.id,  correct: true)
+
+qa6b = Qa.create(question_id: question6.id, answer_id: incorrectanswer6.id, correct: false)
+
+qa6c = Qa.create(question_id: question6.id, answer_id: incorrectanswer6b.id, correct: false)
+
+qa6d = Qa.create(question_id: question6.id, answer_id: incorrectanswer6c.id, correct: false)
 
 
 
