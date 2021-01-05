@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2021_01_04_212255) do
 
   create_table "questions", force: :cascade do |t|
     t.string "question_text"
+    t.string "category"
     t.integer "difficulty_id"
   end
 

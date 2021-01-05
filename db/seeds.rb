@@ -18,7 +18,7 @@ Answer.reset_pk_sequence
 Qa.reset_pk_sequence
 
 ########### different ways to write your seeds ############
-questions = File.read("lib/seeds/questions.csv")
+questions = File.read("lib/seeds/questions1.csv")
 csv = CSV.parse(questions, :encoding => 'ISO-8859-1')
 # questions = CSV.read("db/questions.csv") #change line 40 to questions
 
@@ -39,7 +39,7 @@ easyq1 = QuizDifficulty.create(quiz_id: q1.id, difficulty_id: easy.id)
 normalq2 = QuizDifficulty.create(quiz_id: q2.id, difficulty_id: normal.id)
 hardq3 = QuizDifficulty.create(quiz_id: q3.id, difficulty_id: hard.id)
 csv.each do |q|
-    category = q[0]
+    category_name = q[0]
     question_t = q[1]
     correct_answer = q[2]
     incorrectanswer1 = q[3]
@@ -49,6 +49,7 @@ csv.each do |q|
 
     t.question_text = question_t
     t.difficulty_id = hard.id
+    t.category = category_name
 
     t.save
     
