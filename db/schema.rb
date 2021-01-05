@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2021_01_04_212255) do
 
   create_table "users", force: :cascade do |t|
     t.string "character"
-    t.string "password"
+    t.string "password", default: "123"
   end
 
 end
