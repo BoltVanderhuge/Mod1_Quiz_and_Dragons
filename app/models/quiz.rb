@@ -5,12 +5,13 @@ class Quiz < ActiveRecord::Base
   
 
   def question_pool
-    Question.all.select{|question| question.difficulty_id == self.difficulties}
+    question_p = Question.all.select{|question| question.difficulty == self.difficulties}
+    question_p.sample(2)
     binding.pry
   end
   
-  def mix_questions(difficulty)
-    questions = self.question_pool(difficulty).sample(2)
+  def mix_questions
+    questions = self.question_pool.sample(2)
     questions
   end 
 
@@ -18,4 +19,4 @@ class Quiz < ActiveRecord::Base
   
 end
 
-#putting a question - choose from question pool - make sure a question is not chose twice in the same instance
+#putting a question - choose from question pool 

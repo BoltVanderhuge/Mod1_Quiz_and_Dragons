@@ -1,7 +1,7 @@
 require 'pry'
 class Interface
     attr_reader :prompt
-    attr_accessor :user
+    attr_accessor :user, :quiz, :quiz_difficulties
 
     def initialize
         @prompt = TTY::Prompt.new
@@ -27,7 +27,39 @@ class Interface
         end
         self.user = User.create(character: name)
         puts "Greetings #{user.character}!"
+        difficulty_selection
     end
+
+    def difficulty_selection
+        puts "It just so happens my tale of wits,wisdoms and wyverns also involves #{user.character}, a relative perhaps?"
+        prompt.select ("Tell me would you like a tale of hardships or of ease or something heroically inbetween?") do |menu|
+            menu.choice "Easy", -> {easy_quiz_maker_helper}
+            menu.choice "Medium", -> {medium_quiz_maker_helper}
+            menu.choice "Hard", -> {hard_quiz_maker_helper}
+        end
+    end
+
+    def easy_quiz_maker_helper
+        current_quiz = Quiz.create(user_id: user.id)
+        current_difficulty = QuizDifficulty.create(quiz_id: current_quiz.id, difficulty_id: Difficulty.all[0].id)
+        current_quiz.question_pool
+        "oof"
+    end
+
+    def medium_quiz_maker_helper
+        current_quiz = Quiz.create(user_id: user.id)
+        current_difficulty = QuizDifficulty.create(quiz_id: current_quiz.id, difficulty_id: Difficulty.all[1].id)
+        current_quiz.question_pool
+        "woof"
+    end
+    
+    def hard_quiz_maker_helper
+        current_quiz = Quiz.create(user_id: user.id)
+        current_difficulty = QuizDifficulty.create(quiz_id: current_quiz.id, difficulty_id: Difficulty.all[2].id)
+        current_quiz.question_pool
+        "doof"
+    end
+
 
 end
 

@@ -4,6 +4,8 @@ class QuizDifficulty < ActiveRecord::Base
   # has_many :difficulties 
   belongs_to :difficulty
 
-  
+  def hello
+    "Hello"
+  end
 
 end
