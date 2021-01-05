@@ -4,22 +4,22 @@ require 'csv'
 
 User.destroy_all
 Quiz.destroy_all
+Difficulty.destroy_all
 QuizDifficulty.destroy_all
 Question.destroy_all
-Qa.destroy_all
-Difficulty.destroy_all
 Answer.destroy_all
+Qa.destroy_all
 User.reset_pk_sequence
 Quiz.reset_pk_sequence
+Difficulty.reset_pk_sequence
 QuizDifficulty.reset_pk_sequence
 Question.reset_pk_sequence
-Qa.reset_pk_sequence
-Difficulty.reset_pk_sequence
 Answer.reset_pk_sequence
+Qa.reset_pk_sequence
 
 ########### different ways to write your seeds ############
-questions = File.read("db/questions.csv")
-csv = CSV.parse(questions, :headers => false, :encoding => 'ISO-8859-1')
+questions = File.read("lib/seeds/questions.csv")
+csv = CSV.parse(questions, :encoding => 'ISO-8859-1')
 # questions = CSV.read("db/questions.csv") #change line 40 to questions
 
 
@@ -252,4 +252,4 @@ end
 # Plant.update(category_id: indoor.id)
 
 
-puts "🔥 🔥 🔥 🔥 "
+puts "🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱 "
