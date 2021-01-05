@@ -23,9 +23,6 @@ ActiveRecord::Schema.define(version: 2021_01_04_212255) do
   create_table "qas", force: :cascade do |t|
     t.integer "question_id"
     t.integer "answer_id"
-    t.integer "incorrect_answer_1_id"
-    t.integer "incorrect_answer_2_id"
-    t.integer "incorrect_answer_3_id"
     t.boolean "correct"
   end
 
