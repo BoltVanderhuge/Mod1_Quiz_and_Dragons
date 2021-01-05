@@ -17,6 +17,7 @@ GEM
     coderay (1.1.3)
     colorize (0.8.1)
     concurrent-ruby (1.1.7)
+    csv (3.1.9)
     faker (2.15.1)
       i18n (>= 1.6, < 2)
     i18n (1.8.7)
@@ -54,15 +55,8 @@ PLATFORMS
 DEPENDENCIES
   activerecord (~> 5.2)
   activerecord-reset-pk-sequence
-
-DEPENDENCIES
-  activerecord (~> 5.2)
-  activerecord-reset-pk-sequence
-
-DEPENDENCIES
-  activerecord (~> 5.2)
-  activerecord-reset-pk-sequence
   colorize
+  csv
   faker
   pry
   rake

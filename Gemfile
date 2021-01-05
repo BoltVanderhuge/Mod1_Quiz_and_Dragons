@@ -11,3 +11,5 @@ gem "pry"
 gem "faker"
 
 gem "colorize"
+
+gem 'csv'

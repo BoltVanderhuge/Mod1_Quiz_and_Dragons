@@ -1,5 +1,7 @@
 require 'pry'
 require 'csv'
+# require_relative './questions.csv'
+
 User.destroy_all
 Quiz.destroy_all
 QuizDifficulty.destroy_all
@@ -16,8 +18,10 @@ Difficulty.reset_pk_sequence
 Answer.reset_pk_sequence
 
 ########### different ways to write your seeds ############
+questions = File.read("db/questions.csv")
+csv = CSV.parse(questions, :headers => false, :encoding => 'ISO-8859-1')
+# questions = CSV.read("db/questions.csv") #change line 40 to questions
 
-questions = CSV.read("/mnt/c/Users/John/dev/flatiron/labs/mod1_project/lib/seeds/questions.csv")
 
 jon = User.create(character: "Knight", password: "password")
 john = User.create(character: "Ninja", password: "80085")
@@ -34,14 +38,13 @@ hard = Difficulty.create(name: "Hard")
 easyq1 = QuizDifficulty.create(quiz_id: q1.id, difficulty_id: easy.id)
 normalq2 = QuizDifficulty.create(quiz_id: q2.id, difficulty_id: normal.id)
 hardq3 = QuizDifficulty.create(quiz_id: q3.id, difficulty_id: hard.id)
-
-questions.each do |q|
+csv.each do |q|
     category = q[0]
-    question_t = q[1].to_s
-    correct_answer = q[2].to_s
-    incorrectanswer1 = q[3].to_s
-    incorrectanswer2 = q[4].to_s
-    incorrectanswer3 = q[5].to_s
+    question_t = q[1]
+    correct_answer = q[2]
+    incorrectanswer1 = q[3]
+    incorrectanswer2 = q[4]
+    incorrectanswer3 = q[5]
     t = Question.new
 
     t.question_text = question_t
@@ -88,7 +91,7 @@ questions.each do |q|
     qa1b.correct = false
 
     qa1b.save
-
+    
     qa1c = Qa.new
 
     qa1c.question_id = t.id 
@@ -96,7 +99,6 @@ questions.each do |q|
     qa1c.correct = false
 
     qa1c.save
-
     qa1d = Qa.new
 
     qa1d.question_id = t.id 
@@ -104,7 +106,7 @@ questions.each do |q|
     qa1d.correct = false
 
     qa1d.save
-
+# binding.pry
 end
 
 
