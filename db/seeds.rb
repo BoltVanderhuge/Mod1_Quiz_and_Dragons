@@ -1,4 +1,5 @@
 require 'pry'
+require 'csv'
 User.destroy_all
 Quiz.destroy_all
 QuizDifficulty.destroy_all
@@ -16,13 +17,8 @@ Answer.reset_pk_sequence
 
 ########### different ways to write your seeds ############
 
+questions = CSV.read("/mnt/c/Users/John/dev/flatiron/labs/mod1_project/lib/seeds/questions.csv")
 
-
-
-
-
-
-# 1: save everything to variables (makes it easy to connect models, best for when you want to be intentional about your seeds)
 jon = User.create(character: "Knight", password: "password")
 john = User.create(character: "Ninja", password: "80085")
 bill = User.create(character: "Wizard", password: "8675309")
@@ -39,57 +35,148 @@ easyq1 = QuizDifficulty.create(quiz_id: q1.id, difficulty_id: easy.id)
 normalq2 = QuizDifficulty.create(quiz_id: q2.id, difficulty_id: normal.id)
 hardq3 = QuizDifficulty.create(quiz_id: q3.id, difficulty_id: hard.id)
 
-question1 = Question.create(question_text: "How many whatever?", difficulty_id: easy.id)
-question2 = Question.create(question_text: "How manys whatever?", difficulty_id: easy.id)
-question3 = Question.create(question_text: "How many whateversss?", difficulty_id: easy.id)
+questions.each do |q|
+    category = q[0]
+    question_t = q[1].to_s
+    correct_answer = q[2].to_s
+    incorrectanswer1 = q[3].to_s
+    incorrectanswer2 = q[4].to_s
+    incorrectanswer3 = q[5].to_s
+    t = Question.new
 
-question4 = Question.create(question_text: "How many wherevers?", difficulty_id: normal.id)
-question5 = Question.create(question_text: "How manys wherevers??", difficulty_id: normal.id)
-question6 = Question.create(question_text: "How many whereversss??", difficulty_id: normal.id)
+    t.question_text = question_t
+    t.difficulty_id = hard.id
 
-question7 = Question.create(question_text: "How many whenever?", difficulty_id: hard.id)
-question8 = Question.create(question_text: "How manys whenever??", difficulty_id: hard.id)
-question9 = Question.create(question_text: "How many wheneversss?", difficulty_id: hard.id)
+    t.save
+    
+    a = Answer.new
 
-correctanswer1 = Answer.create(answer_text: "for sure")
-incorrectanswer1 = Answer.create(answer_text: "nah")
-incorrectanswer1b = Answer.create(answer_text: "nope")
-incorrectanswer1c = Answer.create(answer_text: "never")
+    a.answer_text = correct_answer
+
+    a.save
+    
+    b = Answer.new
+
+    b.answer_text = incorrectanswer1
+
+    b.save
+
+    c = Answer.new
+
+    c.answer_text = incorrectanswer2
+
+    c.save
+
+    d = Answer.new
+
+    d.answer_text = incorrectanswer3
+
+    d.save
+    
+    qa1 = Qa.new
+    
+    qa1.question_id = t.id 
+    qa1.answer_id = a.id
+    qa1.correct = true
+
+    qa1.save
+
+    qa1b = Qa.new
+
+    qa1b.question_id = t.id 
+    qa1b.answer_id = b.id
+    qa1b.correct = false
+
+    qa1b.save
+
+    qa1c = Qa.new
+
+    qa1c.question_id = t.id 
+    qa1c.answer_id = c.id
+    qa1c.correct = false
+
+    qa1c.save
+
+    qa1d = Qa.new
+
+    qa1d.question_id = t.id 
+    qa1d.answer_id = d.id
+    qa1d.correct = false
+
+    qa1d.save
+
+end
 
 
-correctanswer2 = Answer.create(answer_text: "100 percent")
-incorrectanswer2 = Answer.create(answer_text: "none")
-incorrectanswer2b = Answer.create(answer_text: "negative")
-incorrectanswer2c = Answer.create(answer_text: "50 percent")
 
-correctanswer3 = Answer.create(answer_text: "for sure")
-incorrectanswer3 = Answer.create(answer_text: "nah")
-incorrectanswer3b = Answer.create(answer_text: "nope")
-incorrectanswer3c = Answer.create(answer_text: "never")
+# 1: save everything to variables (makes it easy to connect models, best for when you want to be intentional about your seeds)
+# jon = User.create(character: "Knight", password: "password")
+# john = User.create(character: "Ninja", password: "80085")
+# bill = User.create(character: "Wizard", password: "8675309")
 
-qa1 = Qa.create(question_id: question1.id, answer_id: correctanswer1.id,  correct: true)
+# q1 = Quiz.create(user_id: jon.id)
+# q2 = Quiz.create(user_id: john.id)
+# q3 = Quiz.create(user_id: bill.id)
 
-qa1b = Qa.create(question_id: question1.id, answer_id: incorrectanswer1.id, correct: false)
+# easy = Difficulty.create(name: "Easy")
+# normal = Difficulty.create(name: "Normal")
+# hard = Difficulty.create(name: "Hard")
 
-qa1c = Qa.create(question_id: question1.id, answer_id: incorrectanswer1b.id, correct: false)
+# easyq1 = QuizDifficulty.create(quiz_id: q1.id, difficulty_id: easy.id)
+# normalq2 = QuizDifficulty.create(quiz_id: q2.id, difficulty_id: normal.id)
+# hardq3 = QuizDifficulty.create(quiz_id: q3.id, difficulty_id: hard.id)
 
-qa1d = Qa.create(question_id: question1.id, answer_id: incorrectanswer1c.id, correct: false)
+# question1 = Question.create(question_text: "How many whatever?", difficulty_id: easy.id)
+# question2 = Question.create(question_text: "How manys whatever?", difficulty_id: easy.id)
+# question3 = Question.create(question_text: "How many whateversss?", difficulty_id: easy.id)
 
-qa2 = Qa.create(question_id: question2.id, answer_id: correctanswer2.id,  correct: true)
+# question4 = Question.create(question_text: "How many wherevers?", difficulty_id: normal.id)
+# question5 = Question.create(question_text: "How manys wherevers??", difficulty_id: normal.id)
+# question6 = Question.create(question_text: "How many whereversss??", difficulty_id: normal.id)
 
-qa2b = Qa.create(question_id: question2.id, answer_id: incorrectanswer2.id, correct: false)
+# question7 = Question.create(question_text: "How many whenever?", difficulty_id: hard.id)
+# question8 = Question.create(question_text: "How manys whenever??", difficulty_id: hard.id)
+# question9 = Question.create(question_text: "How many wheneversss?", difficulty_id: hard.id)
 
-qa2c = Qa.create(question_id: question2.id, answer_id: incorrectanswer2b.id, correct: false)
+# correctanswer1 = Answer.create(answer_text: "for sure")
+# incorrectanswer1 = Answer.create(answer_text: "nah")
+# incorrectanswer1b = Answer.create(answer_text: "nope")
+# incorrectanswer1c = Answer.create(answer_text: "never")
 
-qa2d = Qa.create(question_id: question2.id, answer_id: incorrectanswer2c.id, correct: false)
 
-qa3 = Qa.create(question_id: question3.id, answer_id: correctanswer3.id,  correct: true)
+# correctanswer2 = Answer.create(answer_text: "100 percent")
+# incorrectanswer2 = Answer.create(answer_text: "none")
+# incorrectanswer2b = Answer.create(answer_text: "negative")
+# incorrectanswer2c = Answer.create(answer_text: "50 percent")
 
-qa3b = Qa.create(question_id: question3.id, answer_id: incorrectanswer3.id, correct: false)
+# correctanswer3 = Answer.create(answer_text: "for sure")
+# incorrectanswer3 = Answer.create(answer_text: "nah")
+# incorrectanswer3b = Answer.create(answer_text: "nope")
+# incorrectanswer3c = Answer.create(answer_text: "never")
 
-qa3c = Qa.create(question_id: question3.id, answer_id: incorrectanswer3b.id, correct: false)
+# qa1 = Qa.create(question_id: question1.id, answer_id: correctanswer1.id,  correct: true)
 
-qa3d = Qa.create(question_id: question3.id, answer_id: incorrectanswer3c.id, correct: false)
+# qa1b = Qa.create(question_id: question1.id, answer_id: incorrectanswer1.id, correct: false)
+
+# qa1c = Qa.create(question_id: question1.id, answer_id: incorrectanswer1b.id, correct: false)
+
+# qa1d = Qa.create(question_id: question1.id, answer_id: incorrectanswer1c.id, correct: false)
+
+# qa2 = Qa.create(question_id: question2.id, answer_id: correctanswer2.id,  correct: true)
+
+# qa2b = Qa.create(question_id: question2.id, answer_id: incorrectanswer2.id, correct: false)
+
+# qa2c = Qa.create(question_id: question2.id, answer_id: incorrectanswer2b.id, correct: false)
+
+# qa2d = Qa.create(question_id: question2.id, answer_id: incorrectanswer2c.id, correct: false)
+
+# qa3 = Qa.create(question_id: question3.id, answer_id: correctanswer3.id,  correct: true)
+
+# qa3b = Qa.create(question_id: question3.id, answer_id: incorrectanswer3.id, correct: false)
+
+# qa3c = Qa.create(question_id: question3.id, answer_id: incorrectanswer3b.id, correct: false)
+
+# qa3d = Qa.create(question_id: question3.id, answer_id: incorrectanswer3c.id, correct: false)
 
 
 
