@@ -5,9 +5,8 @@ class Quiz < ActiveRecord::Base
   
 
   def question_pool
-    question_p = Question.all.select{|question| question.difficulty == self.difficulties}
+    question_p = Question.all.select{|question| question.difficulty.id == self.difficulties.ids.first}
     question_p.sample(2)
-    binding.pry
   end
   
   def mix_questions

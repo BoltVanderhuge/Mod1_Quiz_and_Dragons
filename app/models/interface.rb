@@ -42,22 +42,22 @@ class Interface
     def easy_quiz_maker_helper
         current_quiz = Quiz.create(user_id: user.id)
         current_difficulty = QuizDifficulty.create(quiz_id: current_quiz.id, difficulty_id: Difficulty.all[0].id)
-        current_quiz.question_pool
-        "oof"
+        puts "#{current_quiz.question_pool}"
+        
     end
 
     def medium_quiz_maker_helper
         current_quiz = Quiz.create(user_id: user.id)
         current_difficulty = QuizDifficulty.create(quiz_id: current_quiz.id, difficulty_id: Difficulty.all[1].id)
         current_quiz.question_pool
-        "woof"
+       
     end
     
     def hard_quiz_maker_helper
         current_quiz = Quiz.create(user_id: user.id)
         current_difficulty = QuizDifficulty.create(quiz_id: current_quiz.id, difficulty_id: Difficulty.all[2].id)
         current_quiz.question_pool
-        "doof"
+        
     end
 
 

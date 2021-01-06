@@ -22,6 +22,7 @@ questions = File.read("lib/seeds/questions1.csv")
 csv = CSV.parse(questions, :encoding => 'ISO-8859-1')
 # questions = CSV.read("db/questions.csv") #change line 40 to questions
 
+SLEEP_TIME = 0.05   # temp fix for problem with sqlite/development.db access on wsl
 
 jon = User.create(character: "Knight", password: "password")
 john = User.create(character: "Ninja", password: "80085")
@@ -42,72 +43,32 @@ csv.each do |q|
     category_name = q[0]
     question_t = q[1]
     correct_answer = q[2]
-    incorrectanswer1 = q[3]
-    incorrectanswer2 = q[4]
-    incorrectanswer3 = q[5]
-    t = Question.new
+    incorrect_answer1 = q[3]
+    incorrect_answer2 = q[4]
+    incorrect_answer3 = q[5]
 
-    t.question_text = question_t
-    t.difficulty_id = hard.id
-    t.category = category_name
+    t = Question.create(question_text: question_t, difficulty_id: hard.id, category: category_name)
+    sleep(SLEEP_TIME)
 
-    t.save
+    a = Answer.create(answer_text: correct_answer)
+    sleep(SLEEP_TIME)
+    b = Answer.create(answer_text: incorrect_answer1)
+    sleep(SLEEP_TIME)
+    c = Answer.create(answer_text: incorrect_answer2)
+    sleep(SLEEP_TIME)
+    d = Answer.create(answer_text: incorrect_answer3)
+    sleep(SLEEP_TIME)
     
-    a = Answer.new
+    qa1 = Qa.create(question_id: t.id, answer_id: a.id, correct: true)
+    sleep(SLEEP_TIME)
+    qa2 = Qa.create(question_id: t.id, answer_id: b.id, correct: false)
+    sleep(SLEEP_TIME)
+    qa3 = Qa.create(question_id: t.id, answer_id: c.id, correct: false)
+    sleep(SLEEP_TIME)
+    qa4 = Qa.create(question_id: t.id, answer_id: d.id, correct: false)
+    sleep(SLEEP_TIME)
 
-    a.answer_text = correct_answer
-
-    a.save
-    
-    b = Answer.new
-
-    b.answer_text = incorrectanswer1
-
-    b.save
-
-    c = Answer.new
-
-    c.answer_text = incorrectanswer2
-
-    c.save
-
-    d = Answer.new
-
-    d.answer_text = incorrectanswer3
-
-    d.save
-    
-    qa1 = Qa.new
-    
-    qa1.question_id = t.id 
-    qa1.answer_id = a.id
-    qa1.correct = true
-
-    qa1.save
-
-    qa1b = Qa.new
-
-    qa1b.question_id = t.id 
-    qa1b.answer_id = b.id
-    qa1b.correct = false
-
-    qa1b.save
-    
-    qa1c = Qa.new
-
-    qa1c.question_id = t.id 
-    qa1c.answer_id = c.id
-    qa1c.correct = false
-
-    qa1c.save
-    qa1d = Qa.new
-
-    qa1d.question_id = t.id 
-    qa1d.answer_id = d.id
-    qa1d.correct = false
-
-    qa1d.save
-# binding.pry
+    puts question_t
 end
 
 
