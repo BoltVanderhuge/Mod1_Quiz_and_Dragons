@@ -3,19 +3,33 @@ class Quiz < ActiveRecord::Base
   has_many :difficulties, through: :quiz_difficulties
   belongs_to :user
   
+  
+  
 
   def question_pool
     question_p = Question.all.select{|question| question.difficulty.id == self.difficulties.ids.first}
     question_p.sample(2)
   end
   
-  def mix_questions
-    questions = self.question_pool.sample(2)
-    questions
+  def  get_questions_from_pool(array)
+    array.map {|question| question.question_text}
   end 
 
+  def get_category_from_pool(array)
+    array.map {|question| question.category}
+  end
 
-  
-end
+  def current_quiz_info
+    quiz_array = []
+    question_pools = self.question_pool
+    question_texts = self.get_questions_from_pool(question_pools)
+    question_category = self.get_category_from_pool(question_pools)
+    quiz_array.push(question_texts,question_category)
+    quiz_array
+    binding.pry
+  end
+    
+
+  end 
 
 #putting a question - choose from question pool 

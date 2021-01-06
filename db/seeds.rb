@@ -22,7 +22,7 @@ questions = File.read("lib/seeds/questions1.csv")
 csv = CSV.parse(questions, :encoding => 'ISO-8859-1')
 # questions = CSV.read("db/questions.csv") #change line 40 to questions
 
-SLEEP_TIME = 0.05   # temp fix for problem with sqlite/development.db access on wsl
+SLEEP_TIME = 0   # temp fix for problem with sqlite/development.db access on wsl
 
 jon = User.create(character: "Knight", password: "password")
 john = User.create(character: "Ninja", password: "80085")
@@ -68,7 +68,6 @@ csv.each do |q|
     qa4 = Qa.create(question_id: t.id, answer_id: d.id, correct: false)
     sleep(SLEEP_TIME)
 
-    puts question_t
 end
 
 
@@ -98,9 +97,6 @@ question4 = Question.create(question_text: "How many wheels does a car have?", d
 question5 = Question.create(question_text: "How many wheels does a skateboard have?", difficulty_id: normal.id)
 question6 = Question.create(question_text: "Where is Germany located?", difficulty_id: normal.id)
 
-question7 = Question.create(question_text: "How many whenever?", difficulty_id: easy.id)
-question8 = Question.create(question_text: "How manys whenever??", difficulty_id: easy.id)
-question9 = Question.create(question_text: "How many wheneversss?", difficulty_id: normal.id)
 
 correctanswer1 = Answer.create(answer_text: "meow")
 incorrectanswer1 = Answer.create(answer_text: "woof")
