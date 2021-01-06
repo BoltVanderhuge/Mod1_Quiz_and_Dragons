@@ -21,7 +21,7 @@ class Interface
         puts "Ha ha! I see you are a person of great taste and wit but tell me more of yourself"
         name = prompt.ask("What is your character name?")
         while User.find_by(character: name)
-         user_name = User.find_by(character: name)
+            user_name = User.find_by(character: name)
             puts "I know #{user_name.character} and you are no #{user_name.character} "
             name = prompt.ask("What is your character name?")
         end
@@ -50,7 +50,6 @@ class Interface
         current_quiz = Quiz.create(user_id: user.id)
         current_difficulty = QuizDifficulty.create(quiz_id: current_quiz.id, difficulty_id: Difficulty.all[1].id)
         current_quiz.question_pool
-       
     end
     
     def hard_quiz_maker_helper
