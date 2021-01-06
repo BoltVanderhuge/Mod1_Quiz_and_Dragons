@@ -1,8 +1,10 @@
 require 'pry'
 class Interface
     attr_reader :prompt
-    attr_accessor :user, :quiz, :quiz_difficulties
+    attr_accessor :user, :quiz, :quiz_difficulties, :selection
 
+
+    
     def initialize
         @prompt = TTY::Prompt.new
     end
@@ -40,32 +42,54 @@ class Interface
     end
 
     def easy_quiz_maker_helper
-        current_quiz = Quiz.create(user_id: user.id)
-        current_difficulty = QuizDifficulty.create(quiz_id: current_quiz.id, difficulty_id: Difficulty.all[0].id)
-        puts "#{current_quiz.question_pool}"
+        
+        self.quiz = Quiz.create(user_id: user.id)
+        self.quiz_difficulties = QuizDifficulty.create(quiz_id: quiz.id, difficulty_id: Difficulty.all[0].id)
+        playing_the_game
         
     end
 
     def medium_quiz_maker_helper
-        current_quiz = Quiz.create(user_id: user.id)
-        current_difficulty = QuizDifficulty.create(quiz_id: current_quiz.id, difficulty_id: Difficulty.all[1].id)
-        current_quiz.question_pool
-        puts "#{current_quiz.get_category_from_pool}"
+        self.quiz = Quiz.create(user_id: user.id)
+        self.quiz_difficulties = QuizDifficulty.create(quiz_id: quiz.id, difficulty_id: Difficulty.all[1].id)
+        playing_the_game
     end
     
     def hard_quiz_maker_helper
-        current_quiz = Quiz.create(user_id: user.id)
-        current_difficulty = QuizDifficulty.create(quiz_id: current_quiz.id, difficulty_id: Difficulty.all[2].id)
-        current_quiz.question_pool
-        puts "#{current_quiz.question_pool}"
-        
+        self.quiz = Quiz.create(user_id: user.id)
+        self.quiz_difficulties = QuizDifficulty.create(quiz_id: quiz.id, difficulty_id: Difficulty.all[2].id)
+        playing_the_game
     end
 
+    def playing_the_game
+        quiz_question_array = self.quiz.current_quiz_info[0]
+        
+        quiz_question_array.each do |question|
+            puts "The Category is: " "#{question.category}"
+            puts "#{question.question_text}"
+                choices = %w()
+                question.answers.each do |answer|
+                choices.push(answer.answer_text => answer)
+                end
+            self.selection = prompt.select("Choose the correct answer", choices.shuffle) do |menu|
+            end
+            #binding.pry 
+            if self.selection.is_it_correct
+                self.quiz.getting_an_answer_correct
+            else 
+                self.quiz.getting_an_answer_incorrect
+            end
+        #binding.pry 
+        end 
+    end
 
+    def exit_helper
+    Interface.exit
+    end
 end
 
-#create unique username
-    #
-#prompt difficulty 
-#start new instance of quizdifficulty 
-#start quiz 
+# if selection is true
+
+# else 
+
+# update / delete user
