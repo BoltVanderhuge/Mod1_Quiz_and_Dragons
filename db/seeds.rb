@@ -20,9 +20,11 @@ Qa.reset_pk_sequence
 ########### different ways to write your seeds ############
 questions = File.read("lib/seeds/questions1.csv")
 csv = CSV.parse(questions, :encoding => 'ISO-8859-1')
+
+
 # questions = CSV.read("db/questions.csv") #change line 40 to questions
 
-SLEEP_TIME = 0   # temp fix for problem with sqlite/development.db access on wsl
+SLEEP_TIME = 0.1   # temp fix for problem with sqlite/development.db access on wsl
 
 jon = User.create(character: "Knight", password: "password")
 john = User.create(character: "Ninja", password: "80085")
@@ -68,6 +70,50 @@ csv.each do |q|
     qa4 = Qa.create(question_id: t.id, answer_id: d.id, correct: false)
     sleep(SLEEP_TIME)
 
+    
+end
+
+emquestions = File.read("lib/seeds/easy_medium.csv")
+csvem = CSV.parse(emquestions, :encoding => 'ISO-8859-1')
+csvem.each do |q|
+    category_name = q[0]
+    question_t = q[1]
+    correct_answer = q[2]
+    incorrect_answer1 = q[3]
+    incorrect_answer2 = q[4]
+    incorrect_answer3 = q[5]
+    difficulty = q[6]
+
+    if difficulty == "Easy"
+        difficulty = easy
+    elsif difficulty == "Medium"
+        difficulty = medium
+    elsif difficulty == "Hard"
+        difficulty = hard
+    end
+
+    t = Question.create(question_text: question_t, difficulty_id: difficulty.id, category: category_name)
+    sleep(SLEEP_TIME)
+
+    a = Answer.create(answer_text: correct_answer)
+    sleep(SLEEP_TIME)
+    b = Answer.create(answer_text: incorrect_answer1)
+    sleep(SLEEP_TIME)
+    c = Answer.create(answer_text: incorrect_answer2)
+    sleep(SLEEP_TIME)
+    d = Answer.create(answer_text: incorrect_answer3)
+    sleep(SLEEP_TIME)
+    
+    qa1 = Qa.create(question_id: t.id, answer_id: a.id, correct: true)
+    sleep(SLEEP_TIME)
+    qa2 = Qa.create(question_id: t.id, answer_id: b.id, correct: false)
+    sleep(SLEEP_TIME)
+    qa3 = Qa.create(question_id: t.id, answer_id: c.id, correct: false)
+    sleep(SLEEP_TIME)
+    qa4 = Qa.create(question_id: t.id, answer_id: d.id, correct: false)
+    sleep(SLEEP_TIME)
+
+    
 end
 
 

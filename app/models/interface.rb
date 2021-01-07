@@ -10,6 +10,7 @@ class Interface
     end
 
     def welcome
+        system 'clear'
         prompt.select("Welcome mind weary traveler, pull up a chair. I have a story to tell you") do |menu|
             menu.choice "Tell your story", -> {new_quiz_helper}
             menu.choice "Continue a tale", -> {continue_helper}
@@ -19,6 +20,7 @@ class Interface
 
 
     def new_quiz_helper
+        system 'clear'
         puts "Ha ha! I see you are a person of great taste and wit but tell me more of yourself"
         name = prompt.ask("What is your character name?")
         while User.find_by(character: name)
@@ -33,6 +35,7 @@ class Interface
     end
 
     def continue_helper
+        system 'clear'
         puts "You've been this way before, I remember the gleam in your eye"
         name = prompt.ask("Remind me though what is your name")
         while !User.all.map(&:character).include?(name)
@@ -56,11 +59,18 @@ class Interface
     def user_stat_helper
         prompt.select ("Do you not like what you see") do |menu|
             menu.choice "Update Character Name", -> {update_character}
-            # menu.choice "Delete Character", -> {}
+            menu.choice "Delete Character", -> {delete_character_selection}
             # menu.choice "View Character Score", -> {}
-            menu.choice "No, no I look good", -> {welcome}
+            menu.choice "No, no I look good", -> {user_stat_continue}
         end
     end 
+
+    def user_stat_continue
+        prompt.select("So what will it be?") do |menu|
+            menu.choice "Hear a new tale of excitment", -> {difficulty_selection}
+            menu.choice "Gaze again at your reflection in a pool of ale", -> {user_stat_helper}
+        end
+    end
     
     def update_character
         new_name = prompt.ask("What shall I call you now then?")
@@ -73,6 +83,7 @@ class Interface
         #binding.pry
         self.user.change_name(new_name)
         puts "That new moniker suites you well #{new_name}!"
+        system 'clear'
         update_character_continue 
     end 
 
@@ -81,6 +92,26 @@ class Interface
             menu.choice "Hear a new tale of excitment", -> {difficulty_selection}
             menu.choice "Gaze again at your reflection in a pool of ale", -> {user_stat_helper}
         end
+    end
+
+    def delete_character_selection
+        prompt.select ("You wish to strike your name from my tome of travelers?") do |menu|
+            menu.choice "No, no just a slip of the tounge, please draw me a pint", -> {non_delete_continue}
+            menu.choice "Yes I tire of the renown", -> {delete_character}
+        end
+    end
+
+    def non_delete_continue
+        prompt.select("A fine choice and a fine draught, here you go") do |menu|
+            menu.choice "'Why not a story while I enjoy my drink?'", -> {difficulty_selection}
+            menu.choice "Gaze again at your reflection your tankard of ale", -> {user_stat_helper}
+        end
+    end
+
+    def delete_character
+        puts "No hard feelings"
+        self.user.delete_user
+        exit_helper
     end
 
     def difficulty_selection
@@ -112,7 +143,8 @@ class Interface
 
     def playing_the_game
         quiz_question_array = self.quiz.current_quiz_info[0]
-        
+        system 'clear'
+        puts 
         quiz_question_array.each do |question|
             puts "The Category is: " "#{question.category}"
             puts "#{question.question_text}"
@@ -125,16 +157,17 @@ class Interface
             #binding.pry 
             if self.selection.is_it_correct
                 self.quiz.getting_an_answer_correct
-                puts "Well done"
+                puts "Well done" #your current score is 
             else 
                 self.quiz.getting_an_answer_incorrect
-                puts "Oh you poor fool"
+                puts "Oh you poor fool" #your current score is and your health is possible warning message for health
             end
         #binding.pry 
         end 
     end
 
     def exit_helper
-    Interface.exit
+        puts "Until our paths cross again"
+        system 'exit'
     end
 end
