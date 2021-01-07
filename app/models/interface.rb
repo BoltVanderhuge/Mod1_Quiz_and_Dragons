@@ -212,12 +212,55 @@ end
                 puts "Well done your current score is #{self.quiz.get_current_score} " #is colorize 
             else 
                 self.quiz.getting_an_answer_incorrect
-                puts "Oh you poor fool your current score is #{self.quiz.get_current_score} " #your current score is and your health is possible warning message for health colorize
+                puts "Oh you poor fool your current score is #{self.quiz.get_current_score} better keep an eye on your health it is now #{self.quiz.get_current_health} " #your current score is and your health is possible warning message for health colorize
             end
         #binding.pry 
         end 
-        puts "This is where your story ends"
+        puts "You've made it this far, time for the toughest bout yet but be careful your health is #{self.quiz.get_current_health}"
+        final_boss
+        # puts "This is where your story ends peasant"
     end
+
+    def final_boss
+        jep_class = Jep.new
+        qa_array = jep_class.question_and_answer_hash
+        if quiz.get_current_health > 0
+            puts "The Category is: " "#{qa_array[0]}"
+            puts "#{qa_array[1]}"
+            answer = prompt.ask("What is your answer?").downcase
+            if answer == qa_array[2] && self.quiz.boss_health > 0
+                puts "you stab at the mighty beast injuring it severely"
+                self.quiz.hitting_boss
+                 if qa_array[2] && self.quiz.boss_health == 0
+                    self.quiz.slaying_final_boss
+                    puts "You have felled the mighty quiz dragon"
+                    exit_helper
+                 else
+                    final_boss
+                 end
+            # elsif answer == qa_array[2] && self.quiz.boss_health == 0
+            #     self.quiz.slaying_final_boss
+            #     puts "You have felled the mighty quiz dragon"
+            #     exit_helper
+            elsif answer != qa_array[2] && self.quiz.boss_health > 0
+                self.quiz.getting_final_boss_answer_incorrect
+                if self.quiz.health >= 20 
+                puts "The dragon takes a bite out of you, oh the pain your health is now #{self.quiz.get_current_health}"
+                final_boss
+                else
+                    puts "The dragon has bested you, you have learned a valuble lesson never match wits with a dragon"
+                    exit_helper
+                end
+            end 
+        else
+          exit_helper  #game_over
+        end
+    end
+
+    def game_over
+        #continue
+        #start a new game
+    end 
 
     def exit_helper
         puts "Until our paths cross again"

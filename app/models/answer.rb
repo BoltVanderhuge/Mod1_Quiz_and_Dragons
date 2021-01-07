@@ -4,10 +4,5 @@ class Answer < ActiveRecord::Base
 
     def is_it_correct
         get_qa = self.qas[0]
-        if get_qa.correct == true
-            true
-        else
-            false
-        end
+        get_qa.correct == true
     end
-end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_04_212255) do
+ActiveRecord::Schema.define(version: 2021_01_07_183229) do
 
   create_table "answers", force: :cascade do |t|
     t.string "answer_text"
@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 2021_01_04_212255) do
   create_table "quizzes", force: :cascade do |t|
     t.integer "user_id"
     t.integer "score", default: 0
+    t.integer "dragon", default: 3
+    t.integer "health", default: 100
   end
 
   create_table "users", force: :cascade do |t|

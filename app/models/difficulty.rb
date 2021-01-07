@@ -5,9 +5,6 @@ class Difficulty < ActiveRecord::Base
 
 
     
-    def sort_difficulty
-      self.questions
-    end 
     
   end
   
