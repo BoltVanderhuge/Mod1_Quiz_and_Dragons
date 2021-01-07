@@ -6,3 +6,4 @@ class Answer < ActiveRecord::Base
         get_qa = self.qas[0]
         get_qa.correct == true
     end
+end

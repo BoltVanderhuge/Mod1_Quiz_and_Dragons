@@ -63,10 +63,11 @@ end
 
     def welcome
         system 'clear'
-        prompt.select("Welcome mind weary traveler, pull up a chair. I have a story to tell you") do |menu|
+        prompt.select("Welcome mind weary traveler, pull up a chair. I have a story to tell you", cycle: true) do |menu|
             menu.choice "Tell your story", -> {new_quiz_helper}
             menu.choice "Continue a tale", -> {continue_helper}
             menu.choice "Trouble me no more", -> { exit_helper}
+        
         end
     end
 
@@ -80,8 +81,9 @@ end
             puts "I know #{user_name.character} and you are no #{user_name.character} "
             name = prompt.ask("What is your character name?")
         end
-        pass = prompt.ask("Tell me a secret phrase that only you might know")
+        pass = prompt.mask("Tell me a secret phrase that only you might know")
         self.user = User.create(character: name, password: pass)
+        system 'clear'
         puts "Greetings #{user.character}!"
         difficulty_selection
     end
@@ -231,13 +233,13 @@ end
             if answer == qa_array[2] && self.quiz.boss_health > 0
                 puts "you stab at the mighty beast injuring it severely"
                 self.quiz.hitting_boss
-                 if qa_array[2] && self.quiz.boss_health == 0
+                if qa_array[2] && self.quiz.boss_health == 0
                     self.quiz.slaying_final_boss
                     puts "You have felled the mighty quiz dragon"
                     exit_helper
-                 else
+                else
                     final_boss
-                 end
+                end
             # elsif answer == qa_array[2] && self.quiz.boss_health == 0
             #     self.quiz.slaying_final_boss
             #     puts "You have felled the mighty quiz dragon"
