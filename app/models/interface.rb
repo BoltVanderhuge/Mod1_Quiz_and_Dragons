@@ -13,7 +13,6 @@ class Interface
         prompt.select("Welcome mind weary traveler, pull up a chair. I have a story to tell you") do |menu|
             menu.choice "Tell your story", -> {new_quiz_helper}
             menu.choice "Continue a tale", -> {continue_helper}
-            menu.choice "Look at your reflection in a pool of ale", -> {user_stat_helper}
             menu.choice "Trouble me no more", -> { exit_helper}
         end
     end
@@ -36,19 +35,22 @@ class Interface
     def continue_helper
         puts "You've been this way before, I remember the gleam in your eye"
         name = prompt.ask("Remind me though what is your name")
-        pass = prompt.ask("Oh, and give me that secret phrase we established")
-        if !User.all.map(&:character).include?(name)
+        while !User.all.map(&:character).include?(name)
             puts "No that can't be right never heard of them"
             name = prompt.ask("Remind me though what is your name")
-        elsif !User.where('character = ?', name).map(&:password).include?(pass)
+        end
+        pass = prompt.ask("Oh, and give me that secret phrase we established")
+         while !User.where('character = ?', name).map(&:password).include?(pass)
             puts "Hey #{name} I think you have something caught in your throat try again"
             pass = prompt.ask("Oh, and give me that secret phrase we established")
-        else
-            self.user = User.select('name = ?', name && 'password = ?', pass)
-            binding.pry
         end
+            self.user = User.all.find_by(character: name)
+            #binding.pry
         puts "Welcome back #{name}!"
-        difficulty_selection
+        prompt.select("You have returned to the tavern, now will you hear a new tale of excitment or get a pint and do some introspection") do |menu|
+            menu.choice "Hear a new tale of excitment", -> {difficulty_selection}
+            menu.choice "Look at your reflection in a pool of ale", -> {user_stat_helper}
+        end
     end
 
     def user_stat_helper
@@ -62,18 +64,26 @@ class Interface
     
     def update_character
         new_name = prompt.ask("What shall I call you now then?")
-        while User.find_by(character: name)
-            user_name = User.find_by(character: name)
-            puts "Someone already goes by #{user_name.character}. We can't have two of you running around..."
-            name = prompt.ask("What shall I call you now then?")
+        #binding.pry
+        while User.find_by(character: new_name)
+            user_name = User.find_by(character: new_name)
+            puts "Someone already goes by #{new_name}. We can't have two of you running around..."
+            new_name = prompt.ask("What shall I call you now then?")
         end
-        self.change_name(new_name)
-        puts "That new moniker suites you well #{user.character}!"
-        welcome 
+        #binding.pry
+        self.user.change_name(new_name)
+        puts "That new moniker suites you well #{new_name}!"
+        update_character_continue 
     end 
 
+    def update_character_continue
+        prompt.select("You have had a pint, now will you hear a new tale of excitment or have another round") do |menu|
+            menu.choice "Hear a new tale of excitment", -> {difficulty_selection}
+            menu.choice "Look at your reflection in a pool of ale", -> {user_stat_helper}
+        end
+    end
+
     def difficulty_selection
-        binding.pry
         puts "It just so happens my tale of wits,wisdoms and wyverns also involves #{user.character}, a relative perhaps?"
         prompt.select ("Tell me would you like a tale of hardships or of ease or something heroically inbetween?") do |menu|
             menu.choice "Easy", -> {easy_quiz_maker_helper}
