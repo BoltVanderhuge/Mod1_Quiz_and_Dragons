@@ -18,8 +18,8 @@ class Interface
         end
     end
 
+
     def new_quiz_helper
-        #binding.pry
         puts "Ha ha! I see you are a person of great taste and wit but tell me more of yourself"
         name = prompt.ask("What is your character name?")
         while User.find_by(character: name)
@@ -27,12 +27,53 @@ class Interface
             puts "I know #{user_name.character} and you are no #{user_name.character} "
             name = prompt.ask("What is your character name?")
         end
-        self.user = User.create(character: name)
+        pass = prompt.ask("Tell me a secret phrase that only you might know")
+        self.user = User.create(character: name, password: pass)
         puts "Greetings #{user.character}!"
         difficulty_selection
     end
 
+    def continue_helper
+        puts "You've been this way before, I remember the gleam in your eye"
+        name = prompt.ask("Remind me though what is your name")
+        pass = prompt.ask("Oh, and give me that secret phrase we established")
+        if !User.all.map(&:character).include?(name)
+            puts "No that can't be right never heard of them"
+            name = prompt.ask("Remind me though what is your name")
+        elsif !User.where('character = ?', name).map(&:password).include?(pass)
+            puts "Hey #{name} I think you have something caught in your throat try again"
+            pass = prompt.ask("Oh, and give me that secret phrase we established")
+        else
+            self.user = User.select('name = ?', name && 'password = ?', pass)
+            binding.pry
+        end
+        puts "Welcome back #{name}!"
+        difficulty_selection
+    end
+
+    def user_stat_helper
+        prompt.select ("Do you not like what you see") do |menu|
+            menu.choice "Update Character Name", -> {update_character}
+            # menu.choice "Delete Character", -> {}
+            # menu.choice "View Character Score", -> {}
+            menu.choice "No, no I look good", -> {welcome}
+        end
+    end 
+    
+    def update_character
+        new_name = prompt.ask("What shall I call you now then?")
+        while User.find_by(character: name)
+            user_name = User.find_by(character: name)
+            puts "Someone already goes by #{user_name.character}. We can't have two of you running around..."
+            name = prompt.ask("What shall I call you now then?")
+        end
+        self.change_name(new_name)
+        puts "That new moniker suites you well #{user.character}!"
+        welcome 
+    end 
+
     def difficulty_selection
+        binding.pry
         puts "It just so happens my tale of wits,wisdoms and wyverns also involves #{user.character}, a relative perhaps?"
         prompt.select ("Tell me would you like a tale of hardships or of ease or something heroically inbetween?") do |menu|
             menu.choice "Easy", -> {easy_quiz_maker_helper}
@@ -42,11 +83,9 @@ class Interface
     end
 
     def easy_quiz_maker_helper
-        
         self.quiz = Quiz.create(user_id: user.id)
         self.quiz_difficulties = QuizDifficulty.create(quiz_id: quiz.id, difficulty_id: Difficulty.all[0].id)
         playing_the_game
-        
     end
 
     def medium_quiz_maker_helper
@@ -76,8 +115,10 @@ class Interface
             #binding.pry 
             if self.selection.is_it_correct
                 self.quiz.getting_an_answer_correct
+                puts "Well done"
             else 
                 self.quiz.getting_an_answer_incorrect
+                puts "Oh you poor fool"
             end
         #binding.pry 
         end 
@@ -87,9 +128,3 @@ class Interface
     Interface.exit
     end
 end
-
-# if selection is true
-
-# else 
-
-# update / delete user
