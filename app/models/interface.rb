@@ -79,7 +79,7 @@ class Interface
     def update_character_continue
         prompt.select("You have had a pint, now will you hear a new tale of excitment or have another round") do |menu|
             menu.choice "Hear a new tale of excitment", -> {difficulty_selection}
-            menu.choice "Look at your reflection in a pool of ale", -> {user_stat_helper}
+            menu.choice "Gaze again at your reflection in a pool of ale", -> {user_stat_helper}
         end
     end
 

@@ -33,10 +33,12 @@ class Quiz < ActiveRecord::Base
     
   def getting_an_answer_correct
     self.score += 10
+    self.save
   end
 
   def getting_an_answer_incorrect
-    self.score -= 10
+    self.score -= 8
+    self.save
   end
 
 
