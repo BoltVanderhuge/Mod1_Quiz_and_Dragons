@@ -43,6 +43,7 @@ class Quiz < ActiveRecord::Base
 
   def get_current_score
     self.score
+    
   end 
   
 
