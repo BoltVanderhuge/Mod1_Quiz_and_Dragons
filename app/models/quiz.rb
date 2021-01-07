@@ -8,7 +8,7 @@ class Quiz < ActiveRecord::Base
 
   def question_pool
     question_p = Question.all.select{|question| question.difficulty.id == self.difficulties.ids.first}
-    question_p.sample(2)
+    question_p.sample(5)
   end
   
   def  get_questions_from_pool(array)
@@ -41,8 +41,12 @@ class Quiz < ActiveRecord::Base
     self.save
   end
 
-
+  def get_current_score
+    self.score
   end 
+  
+
+end 
 
 #iterate over current quiz info, print the cateogry and the question for each
 

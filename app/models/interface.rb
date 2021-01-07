@@ -9,6 +9,55 @@ class Interface
         @prompt = TTY::Prompt.new
     end
 
+    # def start_game
+    # system 'clear'
+    #    puts"
+
+#     █    ██  ██▓  ▄▄▄█████▓ ██▓ ███▄ ▄███▓ ▄▄▄     ▄▄▄█████▓▓█████    ▄▄▄█████▓ ██▀███   ██▓ ██▒   █▓ ██▓ ▄▄▄      
+#     ██  ▓██▒▓██▒  ▓  ██▒ ▓▒▓██▒▓██▒▀█▀ ██▒▒████▄   ▓  ██▒ ▓▒▓█   ▀    ▓  ██▒ ▓▒▓██ ▒ ██▒▓██▒▓██░   █▒▓██▒▒████▄    
+#    ▓██  ▒██░▒██░  ▒ ▓██░ ▒░▒██▒▓██    ▓██░▒██  ▀█▄ ▒ ▓██░ ▒░▒███      ▒ ▓██░ ▒░▓██ ░▄█ ▒▒██▒ ▓██  █▒░▒██▒▒██  ▀█▄  
+#    ▓▓█  ░██░▒██░  ░ ▓██▓ ░ ░██░▒██    ▒██ ░██▄▄▄▄██░ ▓██▓ ░ ▒▓█  ▄    ░ ▓██▓ ░ ▒██▀▀█▄  ░██░  ▒██ █░░░██░░██▄▄▄▄██ 
+#    ▒▒█████▓ ░██████▒▒██▒ ░ ░██░▒██▒   ░██▒ ▓█   ▓██▒ ▒██▒ ░ ░▒████▒     ▒██▒ ░ ░██▓ ▒██▒░██░   ▒▀█░  ░██░ ▓█   ▓██▒
+#    ░▒▓▒ ▒ ▒ ░ ▒░▓  ░▒ ░░   ░▓  ░ ▒░   ░  ░ ▒▒   ▓▒█░ ▒ ░░   ░░ ▒░ ░     ▒ ░░   ░ ▒▓ ░▒▓░░▓     ░ ▐░  ░▓   ▒▒   ▓▒█░
+#    ░░▒░ ░ ░ ░ ░ ▒  ░  ░     ▒ ░░  ░      ░  ▒   ▒▒ ░   ░     ░ ░  ░       ░      ░▒ ░ ▒░ ▒ ░   ░ ░░   ▒ ░  ▒   ▒▒ ░
+#     ░░░ ░ ░   ░ ░   ░       ▒ ░░      ░     ░   ▒    ░         ░        ░        ░░   ░  ▒ ░     ░░   ▒ ░  ░   ▒   
+#       ░         ░  ░        ░         ░         ░  ░           ░  ░               ░      ░        ░   ░        ░  ░
+#                                                                                                  ░                 
+#                            ==(W{==========-      /===-                        
+#                               ||  (.--.)         /===-_---~~~~~~~~~------____  
+#                               | \_,|**|,__      |===-~___                _,-' `
+#                  -==\\        `\ ' `--'   ),    `//~\\   ~~~~`---.___.-~~      
+#              ______-==|        /`\_. .__/\ \    | |  \\           _-~`         
+#        __--~~~  ,-/-==\\      (   | .  |~~~~|   | |   `\        ,'             
+#     _-~       /'    |  \\     )__/==0==-\<>/   / /      \      /               
+#   .'        /       |   \\      /~\___/~~\/  /' /        \   /'                
+#  /  ____  /         |    \`\.__/-~~   \  |_/'  /          \/'                  
+# /-'~    ~~~~~---__  |     ~-/~         ( )   /'        _--~`                   
+#                   \_|      /        _) | ;  ),   __--~~                        
+#                     '~~--_/      _-~/- |/ \   '-~ \                            
+#                    {\__--_/}    / \\_>-|)<__\      \                           
+#                    /'   (_/  _-~  | |__>--<__|      |                          
+#                   |   _/) )-~     | |__>--<__|      |                          
+#                   / /~ ,_/       / /__>---<__/      |                          
+#                  o-o _//        /-~_>---<__-~      /                           
+#                  (^(~          /~_>---<__-      _-~                            
+#                 ,/|           /__>--<__/     _-~                               
+#              ,//('(          |__>--<__|     /    .----_          
+#             ( ( '))          |__>--<__|    |                 /' _---_~\        
+#          `-)) )) (           |__>--<__|    |               /'  /     ~\`\      
+#         ,/,'//( (             \__>--<__\    \            /'  //        ||      
+#       ,( ( ((, ))              ~-__>--<_~-_  ~--____---~' _/'/        /'       
+#     `~/  )` ) ,/|                 ~-_~>--<_/-__       __-~ _/                  
+#   ._-~//( )/ )) `                    ~~-'_/_/ /~~~~~~~__--~                    
+#    ;'( ')/ ,)(                              ~~~~~~~~~~                         
+#   ' ') '( (/                                                                   
+#     '   '  `"
+
+#   prompt.select("Enter specific text at beginning of game") do |menu|
+#    menu.choice "Start Game", -> {welcome}
+
+    # end
+
     def welcome
         system 'clear'
         prompt.select("Welcome mind weary traveler, pull up a chair. I have a story to tell you") do |menu|
@@ -157,13 +206,14 @@ class Interface
             #binding.pry 
             if self.selection.is_it_correct
                 self.quiz.getting_an_answer_correct
-                puts "Well done" #your current score is 
+                puts "Well done your current score is #{self.quiz.get_current_score} " #is colorize 
             else 
                 self.quiz.getting_an_answer_incorrect
-                puts "Oh you poor fool" #your current score is and your health is possible warning message for health
+                puts "Oh you poor fool your current score is #{self.quiz.get_current_score} " #your current score is and your health is possible warning message for health colorize
             end
         #binding.pry 
         end 
+        puts "This is where your story ends"
     end
 
     def exit_helper
