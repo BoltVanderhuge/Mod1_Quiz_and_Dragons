@@ -13,7 +13,7 @@ end
 desc "start our app"
 task :start do
   interface = Interface.new
-  interface.welcome
+  interface.start_game
 end
 
 namespace :remind_me_about do
