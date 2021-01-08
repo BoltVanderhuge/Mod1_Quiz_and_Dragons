@@ -75,7 +75,7 @@ class Interface
             pass = prompt.mask("Oh, and give me that secret phrase we established".colorize(:light_blue))
         end
             self.user = User.all.find_by(character: name)
-           system 'clear'
+        system 'clear'
         puts "Welcome back #{name}!".colorize(:green)
         prompt.select("You have returned to the tavern, now will you hear a new tale of excitement or get a pint and do some introspection".colorize(:yellow)) do |menu|
             menu.choice "Hear a new tale of excitement", -> {difficulty_selection}
@@ -168,11 +168,24 @@ class Interface
         playing_the_game
     end
 
+    def reduce_answer(answer)
+        answer = answer.downcase
+        answer = answer.gsub('the ', '')
+        answer = answer.gsub('a ', '')
+        answer = answer.gsub('an ', '')
+        answer = answer.gsub('and ', '')
+        answer = answer.gsub(':', '')
+        answer = answer.gsub('"', '')
+        answer = answer.gsub(' ', '')
+        answer = answer.gsub('.', '')
+    end
+
     def playing_the_game
         quiz_question_array = self.quiz.current_quiz_info[0]
         system 'clear'
         puts 
         quiz_question_array.each do |question|
+            puts "#{villians.sample}"
             puts "The Category is: ".colorize(:light_blue)
             puts "#{question.category}".colorize(:yellow)
             puts "#{question.question_text}"
@@ -184,16 +197,16 @@ class Interface
         end
             if self.selection.is_it_correct
                 self.quiz.getting_an_answer_correct
-                puts "Well done your current score is #{self.quiz.get_current_score}".colorize(:green) #is colorize 
+                puts "Well done your current score is #{self.quiz.get_current_score}".colorize(:green) 
             else 
                 self.quiz.getting_an_answer_incorrect
-                puts "Oh you poor fool your current score is #{self.quiz.get_current_score} better keep an eye on your health it is now #{self.quiz.get_current_health} ".colorize(:red) 
+                puts "Oh you poor fool your current score is #{self.quiz.get_current_score} better keep an eye on your health it is now #{self.quiz.get_current_health} ♥ ".colorize(:red) 
                 sleep (2)
             end
         end 
         sleep (1.5)
         system 'clear'
-        puts "You've made it this far, time for the toughest bout yet, but be careful your health is only #{self.quiz.get_current_health}".colorize(:yellow)
+        puts "You've made it this far, time for the toughest bout yet, but be careful your health is only #{self.quiz.get_current_health}" ♥.colorize(:yellow)
         sleep (4)
         system 'clear'
         puts "There's something large behind you that is shaking the ground beneath your boots...".colorize(:cyan)
@@ -212,7 +225,7 @@ class Interface
             puts "#{qa_array[0]}".colorize(:yellow) 
             puts "#{qa_array[1]}"
             answer = prompt.ask("What is your answer?".colorize(:light_blue), required: true).downcase
-            if answer == qa_array[2] && self.quiz.boss_health > 0
+            if reduce_answer(answer) == reduce_answer(qa_array[2]) && self.quiz.boss_health > 0
                 system 'clear'
                 puts "You stab at the mighty beast injuring it severely".colorize(:magenta)
                 self.quiz.hitting_boss
@@ -226,8 +239,9 @@ class Interface
             elsif answer != qa_array[2] && self.quiz.boss_health > 0
                 self.quiz.getting_final_boss_answer_incorrect
                 if self.quiz.health >= 20 
-                puts "The dragon takes a bite out of you, oh the pain! Your health is now #{self.quiz.get_current_health}".colorize(:red) 
-                final_boss
+                    puts "Wrong the answer was #{qa_array[2]}"
+                    puts "Now the dragon takes a bite out of you, oh the pain! Your health is now #{self.quiz.get_current_health}".colorize(:red) 
+                    final_boss
                 else
                     puts "The beast has bested you, you have learned a valuble lesson. Never match wits with a dragon...".colorize(:yellow)
                     game_over
@@ -237,11 +251,10 @@ class Interface
     end
 
     def game_over
-
-       prompt.select ("Will this be how you are remembered? As a dragon's snack?".colorize(:light_blue)) do |menu|
+        prompt.select ("Will this be how you are remembered? As a dragon's snack?".colorize(:light_blue)) do |menu|
             menu.choice "I will have that dragon's head!", -> {user_stat_continue}
             menu.choice "I tire of this tale, this tavern and of you", -> {exit_helper}
-       end
+        end
     end 
 
     def exit_helper
@@ -255,7 +268,8 @@ class Interface
     end 
 
     def villians
-        villians = ["🧙‍♂️ A wizard appears and starts chanting pointedly at you","🦴 A skeleton clicks and clacks and attacks" "🔪 A thief comes up behind you knife to your throat", "🗡 An knight-errant","🧛‍♂️🧟‍♂️👨‍🚀👨‍🍳👩‍🔬🧙‍♀️🦹‍♂️🦹‍♀️🧜‍♀️🧜‍♂️🧚‍♀️🤹‍♂️"]
+        villians = ["🧙‍♂️ A wizard appears and starts chanting pointedly at you 🧙‍♂️","🦴 A skeleton clicks and clacks and attacks 🦴","🔪 A thief comes up behind you knife to your throat 🔪","🏇 A knight-errant appears forsworn and angry 🏇","🧛‍♂️ That was no oridnary bat! A dracula appears and he's out for bluhhhhd 🧛‍♂️","🧟‍♂️ A zombie stumbles it's way towards you, it must've been drawn to your prodigious brain 🧟‍♂️","👨‍🚀 An astronaut has descended from the astral plain to put you in some astral pain 👨‍🚀","👨‍🍳 A cannibal chef has been waiting for the right time to try their recipe for big brain stew 👨‍🍳","👩‍🔬 A mad scientist appears in a puff of green smoke looking for a brain to put in their Trivia-Bot 9000 and they look like they won't ask nicely 👩‍🔬","🧙‍♀️ A sorcerer starts meancing you with their staff 🧙‍♀️","🧚‍♀️ The toothfairy appears and it looks like she wants way more than teeth from you 🧚‍♀️","🤹‍♂️ A juggler has escaped from the Psycho Circus it looks like they want to add your head to their current routine 🤹‍♂️"
+    ]
     end
 
 end
