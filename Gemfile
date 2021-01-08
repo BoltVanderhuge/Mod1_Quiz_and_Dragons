@@ -12,5 +12,6 @@ gem "faker"
 gem "tty-prompt"
 
 gem "colorize"
+gem "sanitize"
 
 gem 'csv'

@@ -8,19 +8,28 @@ class Jep
 # @questions = JSON.parse(@response)
 
 
-
-def question_and_answer_hash
+def get_question
     uri = URI('https://jservice.io/api/random') 
     response = Net::HTTP.get(uri)
-    questions = JSON.parse(response)
+    JSON.parse(response).first
+end
 
-    array = []
-    array.push(questions[0]["category"]["title"].titleize)
-    array.push(questions[0]["question"])
-    array.push(questions[0]["answer"].downcase.gsub(/[^\w\s]/, ''))
+def question_and_answer_hash
+    while 
+        question = self.get_question
+        category = question["category"]["title"].titleize
+        question_text = question["question"]
+        answer = Sanitize.fragment(question["answer"].downcase)
+        if question_text.empty? || answer.empty?
+            puts "A wizard has caused some mischief soon the query will appear"
+        else
+            array = [category, question_text, answer]
+            break
+        end
+    end
     array
+# downcase.gsub(/[^\w\s]/, ''))
     # <\/?[bi]>
-    #binding.pry
     #gsub(/[^a-z0-9\s]/i, '') (/[^a-zA-Z\s\d]/, '') (/[^\w\s]/, '') (/[!@#$%^&*()-=_+|;':",.<>?']/, '')
 end
 
