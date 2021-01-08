@@ -178,6 +178,7 @@ class Interface
         answer = answer.gsub('"', '')
         answer = answer.gsub(' ', '')
         answer = answer.gsub('.', '')
+        answer = answer.gsub('!', '')
     end
 
     def playing_the_game
@@ -204,6 +205,7 @@ class Interface
                 self.quiz.getting_an_answer_incorrect
                 puts "Oh you poor fool your current score is #{self.quiz.get_current_score} better keep an eye on your health it is now #{self.quiz.get_current_health} ♥ ".colorize(:red) 
                 sleep (2)
+                system 'clear'
             end
         end 
         sleep (1.5)
@@ -241,14 +243,15 @@ class Interface
             elsif answer != qa_array[2] && self.quiz.boss_health > 0
                 self.quiz.getting_final_boss_answer_incorrect
                 if self.quiz.health >= 20 
-                    puts "Wrong the answer was #{qa_array[2]}".colorize(:light_red)
+                    puts "Wrong! The answer was #{qa_array[2]}".colorize(:light_red)
                     puts "Now the dragon takes a bite out of you, oh the pain! Your health is now #{self.quiz.get_current_health}".colorize(:red) 
-                    sleep (2)
+                    sleep (3)
                     system 'clear'
                     final_boss
                 else
-                    puts "Wrong the answer was #{qa_array[2]}".colorize(:light_red)
+                    puts "Wrong! The answer was #{qa_array[2]}".colorize(:light_red)
                     puts "The beast has bested you, you have learned a valuble lesson. Never match wits with a dragon...".colorize(:yellow)
+                    sleep (4)
                     game_over
                 end
             end 
@@ -257,6 +260,16 @@ class Interface
 
     
     def game_over
+        system 'clear'
+        puts "
+
+ ▄▀▀▀▀▄    ▄▀▀█▄   ▄▀▀▄ ▄▀▄  ▄▀▀█▄▄▄▄      ▄▀▀▀▀▄   ▄▀▀▄ ▄▀▀▄  ▄▀▀█▄▄▄▄  ▄▀▀▄▀▀▀▄ 
+ █         ▐ ▄▀ ▀▄ █  █ ▀  █ ▐  ▄▀   ▐     █      █ █   █    █ ▐  ▄▀   ▐ █   █   █ 
+ █    ▀▄▄    █▄▄▄█ ▐  █    █   █▄▄▄▄▄      █      █ ▐  █    █    █▄▄▄▄▄  ▐  █▀▀█▀  
+ █     █ █  ▄▀   █   █    █    █    ▌      ▀▄    ▄▀    █   ▄▀    █    ▌   ▄▀    █  
+ ▐▀▄▄▄▄▀ ▐ █   ▄▀  ▄▀   ▄▀    ▄▀▄▄▄▄         ▀▀▀▀       ▀▄▀     ▄▀▄▄▄▄   █     █   
+ ▐         ▐   ▐   █    █     █    ▐                            █    ▐   ▐     ▐   
+                   ▐    ▐     ▐                                 ▐                  ".colorize(:color => :white)
         prompt.select ("Will this be how you are remembered? As a dragon's snack?".colorize(:light_blue)) do |menu|
             menu.choice "I will have that dragon's head!", -> {user_stat_continue}
             menu.choice "I tire of this tale, this tavern and of you", -> {exit_helper}
@@ -269,7 +282,21 @@ class Interface
     end
 
     def won_game
+        puts "
+
+ ▄█    █▄   ▄█   ▄████████     ███      ▄██████▄     ▄████████ ▄██   ▄   
+ ███    ███ ███  ███    ███ ▀█████████▄ ███    ███   ███    ███ ███   ██▄ 
+ ███    ███ ███▌ ███    █▀     ▀███▀▀██ ███    ███   ███    ███ ███▄▄▄███ 
+ ███    ███ ███▌ ███            ███   ▀ ███    ███  ▄███▄▄▄▄██▀ ▀▀▀▀▀▀███ 
+ ███    ███ ███▌ ███            ███     ███    ███ ▀▀███▀▀▀▀▀   ▄██   ███ 
+ ███    ███ ███  ███    █▄      ███     ███    ███ ▀███████████ ███   ███ 
+ ███    ███ ███  ███    ███     ███     ███    ███   ███    ███ ███   ███ 
+  ▀██████▀  █▀   ████████▀     ▄████▀    ▀██████▀    ███    ███  ▀█████▀  
+                                                     ███    ███           
+ 
+        ".colorize(:light_cyan)
         puts "🎈Congratulations, you succeeded! This legend will be told to everyone in the village🎇".colorize(:green)
+        #puts your final score
         system 'exit'
     end 
 
