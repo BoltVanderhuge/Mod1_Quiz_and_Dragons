@@ -206,7 +206,7 @@ class Interface
         end 
         sleep (1.5)
         system 'clear'
-        puts "You've made it this far, time for the toughest bout yet, but be careful your health is only #{self.quiz.get_current_health}" ♥.colorize(:yellow)
+        puts "You've made it this far, time for the toughest bout yet, but be careful your health is only #{self.quiz.get_current_health}♥".colorize(:yellow)
         sleep (4)
         system 'clear'
         puts "There's something large behind you that is shaking the ground beneath your boots...".colorize(:cyan)
