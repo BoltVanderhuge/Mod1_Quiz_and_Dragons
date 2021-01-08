@@ -8,5 +8,4 @@ class Difficulty < ActiveRecord::Base
     
   end
   
-  #method to find what difficulty user chooses
-  #make questions all of the same difficulty 
+

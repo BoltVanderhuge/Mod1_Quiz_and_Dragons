@@ -456,5 +456,4 @@ class Fire
             system 'clear'
             self.animation
         end 
-        #binding.pry 
 end 

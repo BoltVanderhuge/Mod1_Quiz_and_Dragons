@@ -9,7 +9,7 @@ class Interface
         @prompt = TTY::Prompt.new
     end
 
-    def start_game #image is a place holder
+    def start_game 
     system 'clear'
     Fire.go
     system 'clear'
@@ -28,38 +28,9 @@ class Interface
                                                                                                    ░                 
 
                                                                                                ░".colorize(:red)
-    # puts "                 
-    #                                     ==(W{==========-      /===-                        
-    #                                         ||  (.--.)         /===-_---~~~~~~~~~------____  
-    #                                         | \_,|**|,__      |===-~___                _,-' `
-    #                             -==\\        `\ ` `--`   ),    `//~\\   ~~~~`---.___.-~~      
-    #                         ______-==|        /`\_. .__/\ \    | |  \\           _-~`         
-    #                 __--~~~  ,-/-==\\      (   | .  |~~~~|   | |   `\        ,`             
-    #                 _-~       /`    |  \\     )__/==0==-\<>/   / /      \      /               
-    #             .`        /       |   \\      /~\___/~~\/  /` /        \   /`                
-    #             /  ____  /         |    \`\.__/-~~   \  |_/`  /          \/`                  
-    #             /-`~    ~~~~~---__  |     ~-/~         ( )   /`        _--~`                   
-    #                             \_|      /        _) | ;  ),   __--~~                        
-    #                                 `~~--_/      _-~/- |/ \   `-~ \                            
-    #                             {\__--_/}    / \\_>-|)<__\      \                           
-    #                             /`   (_/  _-~  | |__>--<__|      |                          
-    #                             |   _/) )-~     | |__>--<__|      |                          
-    #                             / /~ ,_/       / /__>---<__/      |                          
-    #                             o-o _//        /-~_>---<__-~      /                           
-    #                             (^(~          /~_>---<__-      _-~                            
-    #                             ,/|           /__>--<__/     _-~                               
-    #                         ,//(`(          |__>--<__|     /    .----_          
-    #                         ( ( `))          |__>--<__|    |                 /` _---_~\        
-    #                     `-)) )) (           |__>--<__|    |               /`  /     ~\`\      
-    #                     ,/,`//( (             \__>--<__\    \            /`  //        ||      
-    #                 ,( ( ((, ))              ~-__>--<_~-_  ~--____---~` _/`/        /`       
-    #                 `~/  )` ) ,/|                 ~-_~>--<_/-__       __-~ _/                  
-    #             ._-~//( )/ )) `                    ~~-`_/_/ /~~~~~~~__--~                    
-    #             ;`( `)/ ,)(                              ~~~~~~~~~~                         
-    #             ` `) `( (/                                                                   
-    #                 `   `  `"
+   
 
-        prompt.select("Your fate lies in the hands of 20 questions...".colorize(:light_blue)) do |menu|
+        prompt.select("Your fate lies in the hands of 10 questions...".colorize(:light_blue)) do |menu|
             menu.choice "Start Game", -> {welcome}
         end
     end
@@ -116,12 +87,12 @@ class Interface
         prompt.select ("Do you not like what you see".colorize(:light_blue)) do |menu|
             menu.choice "Update Character Name", -> {update_character}
             menu.choice "Delete Character", -> {delete_character_selection}
-            # menu.choice "View Character Score", -> {}
             menu.choice "No, no I look good", -> {user_stat_continue}
         end
     end 
 
     def user_stat_continue
+        system 'clear'
         prompt.select("So what will it be?".colorize(:light_blue)) do |menu|
             menu.choice "Hear a new tale of excitement", -> {difficulty_selection}
             menu.choice "Return your gaze to your reflection in a pool of ale", -> {user_stat_helper}
@@ -130,14 +101,12 @@ class Interface
     
     def update_character
         new_name = prompt.ask("What shall I call you now then?".colorize(:light_blue), required: true)
-        #binding.pry
         while User.find_by(character: new_name)
             user_name = User.find_by(character: new_name)
             puts "Someone already goes by #{new_name}. We can't have two of you running around...".colorize(:yellow)
             new_name = prompt.ask("What shall I call you now then?".colorize(:light_blue), required: true)
 
         end
-        #binding.pry
         self.user.change_name(new_name)
         puts "That new moniker suites you well #{new_name}!".colorize(:light_blue)
         sleep (1.5)
@@ -213,20 +182,23 @@ class Interface
             end
             self.selection = prompt.select("Choose the correct answer".colorize(:light_blue), choices.shuffle) do |menu|
         end
-            #binding.pry 
             if self.selection.is_it_correct
                 self.quiz.getting_an_answer_correct
                 puts "Well done your current score is #{self.quiz.get_current_score}".colorize(:green) #is colorize 
             else 
                 self.quiz.getting_an_answer_incorrect
-                puts "Oh you poor fool your current score is #{self.quiz.get_current_score} better keep an eye on your health it is now #{self.quiz.get_current_health} ".colorize(:red) #your current score is and your health is possible warning message for health colorize
+                puts "Oh you poor fool your current score is #{self.quiz.get_current_score} better keep an eye on your health it is now #{self.quiz.get_current_health} ".colorize(:red) 
+                sleep (2)
             end
         end 
         sleep (1.5)
         system 'clear'
         puts "You've made it this far, time for the toughest bout yet, but be careful your health is only #{self.quiz.get_current_health}".colorize(:yellow)
-        sleep (2)
-        puts "🐲The mighty Quizzing Dragon roars and blasts you with it's opening salvo...🐉".colorize(:light_red)
+        sleep (4)
+        system 'clear'
+        puts "There's something large behind you that is shaking the ground beneath your boots...".colorize(:cyan)
+        sleep (3)
+        puts "🐲The mighty Quizzing Dragon roars and blasts you with it's opening salvo!🐉".colorize(:light_red)
         sleep (2)
         final_boss
     end

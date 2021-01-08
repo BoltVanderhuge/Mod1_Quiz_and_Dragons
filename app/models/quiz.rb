@@ -8,7 +8,7 @@ class Quiz < ActiveRecord::Base
 
   def question_pool
     question_p = Question.all.select{|question| question.difficulty.id == self.difficulties.ids.first}
-    question_p.sample(1)
+    question_p.sample(10)
   end
   
   def  get_questions_from_pool(array)
@@ -22,13 +22,8 @@ class Quiz < ActiveRecord::Base
   def current_quiz_info
     quiz_array = []
     question_pools = self.question_pool
-    # question_texts = self.get_questions_from_pool(question_pools)
-    # question_category = self.get_category_from_pool(question_pools)
-    # quiz_array.push(question_pools,question_texts,question_category)
-    # quiz_array
     quiz_array.push(question_pools)
     quiz_array
-    #binding.pry
   end
     
   def getting_an_answer_correct
@@ -52,6 +47,7 @@ class Quiz < ActiveRecord::Base
 
   def getting_final_boss_answer_incorrect
     self.health -= 20
+    self.score -= 10
     self.save
   end
 
@@ -71,5 +67,4 @@ class Quiz < ActiveRecord::Base
 
 end 
 
-#iterate over current quiz info, print the cateogry and the question for each
 

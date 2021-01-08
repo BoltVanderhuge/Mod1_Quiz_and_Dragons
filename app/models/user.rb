@@ -11,11 +11,5 @@ class User < ActiveRecord::Base
         self.destroy # :D
     end
 
-    # def saved_name(name,pass)
-    # User.all.select('name = ?', name && 'password = ?', pass)
-    # binding.pry
-    # binding.pry
-    # end 
-
 
 end
