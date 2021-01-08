@@ -179,6 +179,7 @@ class Interface
         answer = answer.gsub(' ', '')
         answer = answer.gsub('.', '')
         answer = answer.gsub('!', '')
+        answer = answer.gsub('-', '')
     end
 
     def playing_the_game
