@@ -66,7 +66,7 @@ class Interface
 
     def welcome
         system 'clear'
-        prompt.select("Welcome mind weary traveler, pull up a chair. I have a story to tell you".colorize(:light_blue)) do |menu|
+        prompt.select("Welcome mind weary traveler, pull up a chair. I have a story to tell you".colorize(:yellow)) do |menu|
             menu.choice "Tell your story", -> {new_quiz_helper}
             menu.choice "Continue a tale", -> {continue_helper}
             menu.choice "Trouble me no more", -> {exit_helper}
@@ -123,7 +123,7 @@ class Interface
 
     def user_stat_continue
         prompt.select("So what will it be?".colorize(:light_blue)) do |menu|
-            menu.choice "Hear a new tale of excitment", -> {difficulty_selection}
+            menu.choice "Hear a new tale of excitement", -> {difficulty_selection}
             menu.choice "Return your gaze to your reflection in a pool of ale", -> {user_stat_helper}
         end
     end
@@ -140,21 +140,21 @@ class Interface
         #binding.pry
         self.user.change_name(new_name)
         puts "That new moniker suites you well #{new_name}!".colorize(:light_blue)
-        sleep (0.5)
+        sleep (1.5)
         system 'clear'
         update_character_continue 
     end 
 
     def update_character_continue
-        prompt.select("You have had a pint, now will you hear a new tale of excitment or have another round".colorize(:light_blue)) do |menu|
-            menu.choice "Hear a new tale of excitment", -> {difficulty_selection}
+        prompt.select("You have had a pint, now will you hear a new tale of excitement or have another round".colorize(:light_blue)) do |menu|
+            menu.choice "Hear a new tale of excitement", -> {difficulty_selection}
             menu.choice "Gaze again at your reflection in a pool of ale", -> {user_stat_helper}
         end
     end
 
     def delete_character_selection
         prompt.select ("You wish to strike your name from my tome of travelers?".colorize(:yellow)) do |menu|
-            menu.choice "No, no just a slip of the tounge, please draw me a pint", -> {non_delete_continue}
+            menu.choice "No, no just a slip of the tongue, please draw me a pint", -> {non_delete_continue}
             menu.choice "Yes I tire of the renown", -> {delete_character}
         end
     end
@@ -221,14 +221,18 @@ class Interface
                 self.quiz.getting_an_answer_incorrect
                 puts "Oh you poor fool your current score is #{self.quiz.get_current_score} better keep an eye on your health it is now #{self.quiz.get_current_health} ".colorize(:red) #your current score is and your health is possible warning message for health colorize
             end
-        #binding.pry 
         end 
-        puts "You've made it this far, time for the toughest bout yet, but be careful your health is #{self.quiz.get_current_health}".colorize(:yellow)
+        sleep (1.5)
+        system 'clear'
+        puts "You've made it this far, time for the toughest bout yet, but be careful your health is only #{self.quiz.get_current_health}".colorize(:yellow)
+        sleep (2)
+        puts "🐲The mighty Quizzing Dragon roars and blasts you with it's opening salvo...🐉".colorize(:light_red)
+        sleep (2)
         final_boss
-        # puts "This is where your story ends peasant"
     end
 
     def final_boss
+
         jep_class = Jep.new
         qa_array = jep_class.question_and_answer_hash
         if quiz.get_current_health > 0
@@ -237,31 +241,26 @@ class Interface
             puts "#{qa_array[1]}"
             answer = prompt.ask("What is your answer?".colorize(:light_blue), required: true).downcase
             if answer == qa_array[2] && self.quiz.boss_health > 0
-                puts "You stab at the mighty beast injuring it severely".colorize(:light_red)
+                system 'clear'
+                puts "You stab at the mighty beast injuring it severely".colorize(:magenta)
                 self.quiz.hitting_boss
                 if self.quiz.boss_health == 0
                     self.quiz.slaying_final_boss
                     puts "You have felled the mighty quiz dragon".colorize(:light_blue)
-                    exit_helper
+                    won_game
                 else
                     final_boss
                 end
-            # elsif answer == qa_array[2] && self.quiz.boss_health == 0
-            #     self.quiz.slaying_final_boss
-            #     puts "You have felled the mighty quiz dragon"
-            #     exit_helper
             elsif answer != qa_array[2] && self.quiz.boss_health > 0
                 self.quiz.getting_final_boss_answer_incorrect
                 if self.quiz.health >= 20 
                 puts "The dragon takes a bite out of you, oh the pain! Your health is now #{self.quiz.get_current_health}".colorize(:red) 
                 final_boss
                 else
-                    puts "The beast has bested you, you have learned a valuble lesson. Never match wits with a dragon...".colorize(:light_blue)
+                    puts "The beast has bested you, you have learned a valuble lesson. Never match wits with a dragon...".colorize(:yellow)
                     game_over
                 end
             end 
-        # else
-        #   exit_helper  
         end
     end
 
@@ -274,13 +273,12 @@ class Interface
     end 
 
     def exit_helper
-        #system 'clear'
-        puts "Until our paths cross again...".colorize(:light_blue)
+        puts "Until our paths cross again...".colorize(:yellow)
         system 'exit'
     end
 
     def won_game
-        puts "Congratulations, you succeeded! This legend will be told to everyone in the village".colorize(:green)
+        puts "🎈Congratulations, you succeeded! This legend will be told to everyone in the village🎇".colorize(:green)
         system 'exit'
     end 
 
