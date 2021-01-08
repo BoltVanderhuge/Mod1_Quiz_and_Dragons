@@ -24,7 +24,7 @@ csv = CSV.parse(questions, :encoding => 'ISO-8859-1')
 
 # questions = CSV.read("db/questions.csv") #change line 40 to questions
 
-SLEEP_TIME = 0   # temp fix for problem with sqlite/development.db access on wsl
+SLEEP_TIME = 0.1  # temp fix for problem with sqlite/development.db access on wsl
 
 jon = User.create(character: "Knight", password: "password")
 john = User.create(character: "Ninja", password: "80085")

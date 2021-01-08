@@ -295,8 +295,9 @@ class Interface
                                                      ███    ███           
  
         ".colorize(:light_cyan)
-        puts "🎈Congratulations, you succeeded! This legend will be told to everyone in the village🎇".colorize(:green)
-        #puts your final score
+        puts "🎈Congratulations, you succeeded! This legend will be told to everyone in the village🎇 ".colorize(:green)
+        puts "Your score was #{self.quiz.get_current_score}"
+        sleep (3)
         system 'exit'
     end 
 
