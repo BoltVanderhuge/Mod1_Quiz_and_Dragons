@@ -246,7 +246,7 @@ class Interface
                 if self.quiz.health >= 20 
                     puts "Wrong! The answer was #{qa_array[2]}".colorize(:light_red)
                     puts "Now the dragon takes a bite out of you, oh the pain! Your health is now #{self.quiz.get_current_health}".colorize(:red) 
-                    sleep (3)
+                    sleep (4)
                     system 'clear'
                     final_boss
                 else
@@ -303,7 +303,7 @@ class Interface
     end 
 
     def villians
-        villians = ["🧙‍♂️ A wizard appears and starts chanting pointedly at you 🧙‍♂️".colorize(:blue),"🦴 A skeleton clicks and clacks and attacks 🦴".colorize(:white),"🔪 A thief comes up behind you with a knife to your throat 🔪".colorize(:light_black),"🏇 A knight-errant appears forsworn and angry 🏇".colorize(:light_cyan),"🧛‍♂️ That was no oridnary bat! A dracula appears and he's out for bluhhhhd 🧛‍♂️".colorize(:red),"🧟‍♂️ A zombie stumbles it's way towards you, it must've been drawn to your prodigious brain 🧟‍♂️".colorize(:green),"👨‍🚀 An astronaut has descended from the astral plane to put you in some astral pain 👨‍🚀".colorize(:light_cyan),"👨‍🍳 A cannibal chef has been waiting for the right time to try their recipe for big brain stew 👨‍🍳".colorize(:light_magenta),"👩‍🔬 A mad scientist appears in a puff of green smoke looking for a brain to put in their Trivia-Bot 9000 and they look like they won't ask nicely 👩‍🔬".colorize(:light_green),"🧙‍♀️ A sorcerer starts conjures up a spell to cast upon frail mind 🧙‍♀️".colorize(:light_yellow),"🧚‍♀️ The toothfairy appears and it looks like she wants way more than teeth from you 🧚‍♀️".colorize(:white),"🤹‍♂️ A juggler has escaped from the Psycho Circus, and it looks like they want to add your head to their current routine 🤹‍♂️".colorize(:light_blue)
+        villians = ["🧙‍♂️ A wizard appears and starts chanting pointedly at you 🧙‍♂️".colorize(:blue),"🦴 A skeleton clicks and clacks and attacks 🦴".colorize(:white),"🔪 A thief comes up behind you with a knife to your throat 🔪".colorize(:light_black),"🏇 A knight-errant appears forsworn and angry 🏇".colorize(:light_cyan),"🧛‍♂️ That was no ordinary bat! A dracula appears and he's out for bluhhhhd 🧛‍♂️".colorize(:red),"🧟‍♂️ A zombie stumbles it's way towards you, it must've been drawn to your prodigious brain 🧟‍♂️".colorize(:green),"👨‍🚀 An astronaut has descended from the astral plane to put you in some astral pain 👨‍🚀".colorize(:light_cyan),"👨‍🍳 A cannibal chef has been waiting for the right time to try their recipe for big brain stew 👨‍🍳".colorize(:light_magenta),"👩‍🔬 A mad scientist appears in a puff of green smoke looking for a brain to put in their Trivia-Bot 9000 and they look like they won't ask nicely 👩‍🔬".colorize(:light_green),"🧙‍♀️ A sorcerer starts to conjure up a spell to cast upon your frail mind 🧙‍♀️".colorize(:light_yellow),"🧚‍♀️ The toothfairy appears and it looks like she wants way more than teeth from you 🧚‍♀️".colorize(:white),"🤹‍♂️ A juggler has escaped from the Psycho Circus, and it looks like they want to add your head to their current routine 🤹‍♂️".colorize(:light_blue)
     ]
     end
 

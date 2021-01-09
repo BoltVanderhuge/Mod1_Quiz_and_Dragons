@@ -21,7 +21,6 @@ class Jep
             else
                 array = [category, question_text, answer]
                 break
-                binding.pry
             end
         end
         array
